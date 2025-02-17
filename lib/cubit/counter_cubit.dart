@@ -1,21 +1,38 @@
-// Import necessary packages and files
-import 'package:bloc_state_management/cubit/counter_state.dart'; // Import the CounterState class
-import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc for Cubit functionality
+import 'package:bloc_state_management/cubit/counter_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// CounterCubit: Manages the state (counter value) and provides methods to modify it
-class CounterCubit extends Cubit<CounterState> {
-  // Constructor: Initializes the CounterCubit with an initial state
-  CounterCubit() : super(CounterState(0)); // Start with a counter value of 0
+class CounterCubitA extends Cubit<CounterStateA> {
+  CounterCubitA() : super(CounterStateA(0));
 
-  // Method to increment the counter
   void increment() {
-    // Emit a new state with the counter value incremented by 1
-    emit(CounterState(state.counter + 1));
+    emit(IncrementStateA(state.counterA + 1));
   }
 
-  // Method to decrement the counter
   void decrement() {
-    // Emit a new state with the counter value decremented by 1
-    emit(CounterState(state.counter - 1));
+    emit(DecrementStateA(state.counterA - 1));
+  }
+}
+
+class CounterCubitB extends Cubit<CounterStateB> {
+  CounterCubitB() : super(CounterStateB(0));
+
+  void increment() {
+    emit(IncrementStateB(state.counterB + 1));
+  }
+
+  void decrement() {
+    emit(DecrementStateB(state.counterB - 1));
+  }
+}
+
+class CounterCubitC extends Cubit<CounterStateC> {
+  CounterCubitC() : super(CounterStateC(0));
+
+  void increment() {
+    emit(IncrementStateC(state.counterC + 1));
+  }
+
+  void decrement() {
+    emit(DecrementStateC(state.counterC - 1));
   }
 }

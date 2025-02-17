@@ -1,8 +1,41 @@
-// CounterState: Represents the state managed by the CounterCubit
-class CounterState {
-  // Property to hold the current counter value
-  final int counter;
+class CounterStateA {
+  final int counterA;
 
-  // Constructor: Initializes the CounterState with a counter value
-  CounterState(this.counter);
+  CounterStateA(this.counterA);
+}
+
+class CounterStateB {
+  final int counterB;
+
+  CounterStateB(this.counterB);
+}
+
+class CounterStateC {
+  final int counterC;
+
+  CounterStateC(this.counterC);
+}
+
+class IncrementStateA extends CounterStateA {
+  IncrementStateA(super.counterA);
+}
+
+class DecrementStateA extends CounterStateA {
+  DecrementStateA(super.counterA);
+}
+
+class IncrementStateB extends CounterStateB {
+  IncrementStateB(super.counterB);
+}
+
+class DecrementStateB extends CounterStateB {
+  DecrementStateB(super.counterB);
+}
+
+class IncrementStateC extends CounterStateC {
+  IncrementStateC(super.counterC);
+}
+
+class DecrementStateC extends CounterStateC {
+  DecrementStateC(super.counterC);
 }

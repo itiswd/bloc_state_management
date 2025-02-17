@@ -1,34 +1,31 @@
-// Import necessary packages and files
-import 'package:bloc_state_management/cubit/counter_cubit.dart'; // Import the CounterCubit
-import 'package:bloc_state_management/cubit/counter_state.dart'; // Import the CounterState
-import 'package:flutter/material.dart'; // Flutter material design package
-import 'package:flutter_bloc/flutter_bloc.dart'; // flutter_bloc package for state management
+import 'package:bloc_state_management/cubit/counter_cubit.dart';
+import 'package:bloc_state_management/cubit/counter_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Main function: Entry point of the application
 void main() {
-  // Run the MyApp widget
   runApp(const MyApp());
 }
 
-// MyApp: Root widget of the application
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Use BlocProvider to provide the CounterCubit to the widget tree
-    return BlocProvider(
-      // Create an instance of CounterCubit and provide it to the app
-      create: (context) => CounterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CounterCubitA()),
+        BlocProvider(create: (context) => CounterCubitB()),
+        BlocProvider(create: (context) => CounterCubitC()),
+      ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, // Disable debug banner
-        home: Home(), // Set the Home widget as the home screen
+        debugShowCheckedModeBanner: false,
+        home: Home(),
       ),
     );
   }
 }
 
-// Home: The main screen of the application
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -36,37 +33,143 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Row(
-          mainAxisAlignment:
-              MainAxisAlignment.center, // Center the row horizontally
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // IconButton for incrementing the counter
-            IconButton(
-              onPressed: () {
-                // Access the CounterCubit instance using context.read and call the increment method
-                context.read<CounterCubit>().increment();
-              },
-              icon: Icon(Icons.add), // Add icon
+            //A
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitA>().increment();
+                  },
+                  icon: Icon(Icons.add),
+                ),
+                BlocBuilder<CounterCubitA, CounterStateA>(
+                  builder: (context, state) {
+                    debugPrint('state: $state');
+                    if (state is IncrementStateA) {
+                      return MainText(
+                        text: state.counterA.toString(),
+                        color: Colors.green,
+                      );
+                    } else if (state is DecrementStateA) {
+                      return MainText(
+                        text: state.counterA.toString(),
+                        color: Colors.red,
+                      );
+                    }
+                    return MainText(
+                      text: state.counterA.toString(),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitA>().decrement();
+                  },
+                  icon: Icon(Icons.remove),
+                ),
+              ],
             ),
-
-            // BlocBuilder: Rebuilds the widget when the CounterCubit state changes
-            BlocBuilder<CounterCubit, CounterState>(
-              builder: (context, state) {
-                // Display the current counter value from the state
-                return Text(state.counter.toString());
-              },
+            //B
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitB>().increment();
+                  },
+                  icon: Icon(Icons.add),
+                ),
+                BlocBuilder<CounterCubitB, CounterStateB>(
+                  builder: (context, state) {
+                    debugPrint('state: $state');
+                    if (state is IncrementStateB) {
+                      return MainText(
+                        text: state.counterB.toString(),
+                        color: Colors.green,
+                      );
+                    } else if (state is DecrementStateB) {
+                      return MainText(
+                        text: state.counterB.toString(),
+                        color: Colors.red,
+                      );
+                    }
+                    return MainText(
+                      text: state.counterB.toString(),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitB>().decrement();
+                  },
+                  icon: Icon(Icons.remove),
+                ),
+              ],
             ),
-
-            // IconButton for decrementing the counter
-            IconButton(
-              onPressed: () {
-                // Access the CounterCubit instance using context.read and call the decrement method
-                context.read<CounterCubit>().decrement();
-              },
-              icon: Icon(Icons.remove), // Remove icon
+            //C
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitC>().increment();
+                  },
+                  icon: Icon(Icons.add),
+                ),
+                BlocBuilder<CounterCubitC, CounterStateC>(
+                  builder: (context, state) {
+                    debugPrint('state: $state');
+                    if (state is IncrementStateC) {
+                      return MainText(
+                        text: state.counterC.toString(),
+                        color: Colors.green,
+                      );
+                    } else if (state is DecrementStateC) {
+                      return MainText(
+                        text: state.counterC.toString(),
+                        color: Colors.red,
+                      );
+                    }
+                    return MainText(
+                      text: state.counterC.toString(),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.read<CounterCubitA>().decrement();
+                  },
+                  icon: Icon(Icons.remove),
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MainText extends StatelessWidget {
+  final String text;
+  final Color color;
+  const MainText({
+    super.key,
+    required this.text,
+    this.color = Colors.black,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 24,
+        color: color,
       ),
     );
   }
