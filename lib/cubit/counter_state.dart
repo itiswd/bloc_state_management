@@ -1,41 +1,30 @@
-class CounterStateA {
+class CounterState {
   final int counterA;
-
-  CounterStateA(this.counterA);
-}
-
-class CounterStateB {
   final int counterB;
-
-  CounterStateB(this.counterB);
-}
-
-class CounterStateC {
   final int counterC;
-
-  CounterStateC(this.counterC);
+  CounterState(this.counterA, this.counterB, this.counterC);
 }
 
-class IncrementStateA extends CounterStateA {
-  IncrementStateA(super.counterA);
+class IncrementStateA extends CounterState {
+  IncrementStateA(super.counterA, super.counterB, super.counterC);
 }
 
-class DecrementStateA extends CounterStateA {
-  DecrementStateA(super.counterA);
+class DecrementStateA extends CounterState {
+  DecrementStateA(super.counterA, super.counterB, super.counterC);
 }
 
-class IncrementStateB extends CounterStateB {
-  IncrementStateB(super.counterB);
+class IncrementStateB extends CounterState {
+  IncrementStateB(super.counterB, super.counterA, super.counterC);
 }
 
-class DecrementStateB extends CounterStateB {
-  DecrementStateB(super.counterB);
+class DecrementStateB extends CounterState {
+  DecrementStateB(super.counterB, super.counterA, super.counterC);
 }
 
-class IncrementStateC extends CounterStateC {
-  IncrementStateC(super.counterC);
+class IncrementStateC extends CounterState {
+  IncrementStateC(super.counterC, super.counterA, super.counterB);
 }
 
-class DecrementStateC extends CounterStateC {
-  DecrementStateC(super.counterC);
+class DecrementStateC extends CounterState {
+  DecrementStateC(super.counterC, super.counterA, super.counterB);
 }

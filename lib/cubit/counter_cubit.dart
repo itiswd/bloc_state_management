@@ -1,38 +1,30 @@
 import 'package:bloc_state_management/cubit/counter_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterCubitA extends Cubit<CounterStateA> {
-  CounterCubitA() : super(CounterStateA(0));
+class CounterCubit extends Cubit<CounterState> {
+  CounterCubit() : super(CounterState(0, 0, 0));
 
-  void increment() {
-    emit(IncrementStateA(state.counterA + 1));
+  void incrementA() {
+    emit(IncrementStateA(state.counterA + 1, state.counterB, state.counterC));
   }
 
-  void decrement() {
-    emit(DecrementStateA(state.counterA - 1));
-  }
-}
-
-class CounterCubitB extends Cubit<CounterStateB> {
-  CounterCubitB() : super(CounterStateB(0));
-
-  void increment() {
-    emit(IncrementStateB(state.counterB + 1));
+  void decrementA() {
+    emit(DecrementStateA(state.counterA - 1, state.counterB, state.counterC));
   }
 
-  void decrement() {
-    emit(DecrementStateB(state.counterB - 1));
-  }
-}
-
-class CounterCubitC extends Cubit<CounterStateC> {
-  CounterCubitC() : super(CounterStateC(0));
-
-  void increment() {
-    emit(IncrementStateC(state.counterC + 1));
+  void incrementB() {
+    emit(IncrementStateB(state.counterA, state.counterB + 1, state.counterC));
   }
 
-  void decrement() {
-    emit(DecrementStateC(state.counterC - 1));
+  void decrementB() {
+    emit(DecrementStateB(state.counterA, state.counterB - 1, state.counterC));
+  }
+
+  void incrementC() {
+    emit(IncrementStateC(state.counterA, state.counterB, state.counterC + 1));
+  }
+
+  void decrementC() {
+    emit(DecrementStateC(state.counterA, state.counterB, state.counterC - 1));
   }
 }

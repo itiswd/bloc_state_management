@@ -12,12 +12,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => CounterCubitA()),
-        BlocProvider(create: (context) => CounterCubitB()),
-        BlocProvider(create: (context) => CounterCubitC()),
-      ],
+    return BlocProvider(
+      create: (context) => CounterCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Home(),
@@ -42,32 +38,23 @@ class Home extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitA>().increment();
+                    context.read<CounterCubit>().incrementA();
                   },
                   icon: Icon(Icons.add),
                 ),
-                BlocBuilder<CounterCubitA, CounterStateA>(
-                  builder: (context, state) {
-                    debugPrint('state: $state');
-                    if (state is IncrementStateA) {
-                      return MainText(
-                        text: state.counterA.toString(),
-                        color: Colors.green,
-                      );
-                    } else if (state is DecrementStateA) {
-                      return MainText(
-                        text: state.counterA.toString(),
-                        color: Colors.red,
-                      );
-                    }
+                BlocSelector<CounterCubit, CounterState, int>(
+                  selector: (state) => state.counterA,
+                  builder: (context, counterA) {
+                    debugPrint('state: $counterA');
+
                     return MainText(
-                      text: state.counterA.toString(),
+                      text: counterA.toString(),
                     );
                   },
                 ),
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitA>().decrement();
+                    context.read<CounterCubit>().decrementA();
                   },
                   icon: Icon(Icons.remove),
                 ),
@@ -79,32 +66,23 @@ class Home extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitB>().increment();
+                    context.read<CounterCubit>().incrementB();
                   },
                   icon: Icon(Icons.add),
                 ),
-                BlocBuilder<CounterCubitB, CounterStateB>(
-                  builder: (context, state) {
-                    debugPrint('state: $state');
-                    if (state is IncrementStateB) {
-                      return MainText(
-                        text: state.counterB.toString(),
-                        color: Colors.green,
-                      );
-                    } else if (state is DecrementStateB) {
-                      return MainText(
-                        text: state.counterB.toString(),
-                        color: Colors.red,
-                      );
-                    }
+                BlocSelector<CounterCubit, CounterState, int>(
+                  selector: (state) => state.counterB,
+                  builder: (context, counterB) {
+                    debugPrint('state: $counterB');
+
                     return MainText(
-                      text: state.counterB.toString(),
+                      text: counterB.toString(),
                     );
                   },
                 ),
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitB>().decrement();
+                    context.read<CounterCubit>().decrementB();
                   },
                   icon: Icon(Icons.remove),
                 ),
@@ -116,32 +94,22 @@ class Home extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitC>().increment();
+                    context.read<CounterCubit>().incrementC();
                   },
                   icon: Icon(Icons.add),
                 ),
-                BlocBuilder<CounterCubitC, CounterStateC>(
-                  builder: (context, state) {
-                    debugPrint('state: $state');
-                    if (state is IncrementStateC) {
-                      return MainText(
-                        text: state.counterC.toString(),
-                        color: Colors.green,
-                      );
-                    } else if (state is DecrementStateC) {
-                      return MainText(
-                        text: state.counterC.toString(),
-                        color: Colors.red,
-                      );
-                    }
+                BlocSelector<CounterCubit, CounterState, int>(
+                  selector: (state) => state.counterC,
+                  builder: (context, counterC) {
+                    debugPrint('state: $counterC');
                     return MainText(
-                      text: state.counterC.toString(),
+                      text: counterC.toString(),
                     );
                   },
                 ),
                 IconButton(
                   onPressed: () {
-                    context.read<CounterCubitA>().decrement();
+                    context.read<CounterCubit>().decrementC();
                   },
                   icon: Icon(Icons.remove),
                 ),
